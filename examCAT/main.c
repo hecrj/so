@@ -22,6 +22,8 @@ void wait_child(void)
 	sprintf(buff, "Terminated process with PID %d and status %d\n", pid, status);
 	write(1, buff, strlen(buff));
 	#endif
+
+	pid = -1;
 }
 
 /**
@@ -70,8 +72,6 @@ void print_content(char *file)
 
 		getchar();
 		wait_child();
-
-		pid = -1;
 	}
 }
 
