@@ -39,7 +39,7 @@ void print_pid(int s)
 }
 
 /**
- * Executes the ps command for the user PS_USER wit format
+ * Executes the ps command for the user PS_USER with format
  * pid, parent pid and executable name.
  * @param s Signal identifier
  */
