@@ -1,0 +1,4 @@
+Sistemas Operativos
+=================================
+
+Repositorio de código de la asignatura **SO** de la **F**acultad de **I**nformática de **B**arcelona.
