@@ -107,5 +107,5 @@ void main(int argc, char *argv[])
 	alarm(interval);
 
 	while(1)
-		;
+		pause();
 }
