@@ -8,8 +8,8 @@
 #define COUNTER_MAX 5
 #define PS_USER "hector"
 
-int counter = 0;
-int interval;
+int alarm_recieved;
+int counter;
 int pid;
 char buff[80];
 
@@ -43,7 +43,7 @@ void print_pid(int s)
  * pid, parent pid and executable name.
  * @param s Signal identifier
  */
-void exec_ps(int s)
+void exec_ps()
 {
 	int cpid = fork();
 
@@ -62,14 +62,12 @@ void exec_ps(int s)
 	{
 		int status;
 		waitpid(cpid, &status, 0);
-
-		alarm(interval);
 	}
+}
 
-	counter++;
-
-	if(counter == COUNTER_MAX)
-		exit(0);
+void set_alarm(int s)
+{
+	alarm_recieved = 1;
 }
 
 /**
@@ -80,7 +78,7 @@ void Usage(void)
 	sprintf(buff, "Usage: examPS seconds\n\n");
 	write(1, buff, strlen(buff));
 
-	sprintf(buff, "Description:\nExecutes ps every 'seconds' periodically, 5 times.");
+	sprintf(buff, "Description:\nExecutes ps every 'seconds' periodically, 5 times.\n");
 	write(1, buff, strlen(buff));
 
 	exit(0);
@@ -97,15 +95,22 @@ void main(int argc, char *argv[])
 	if(argc != 2)
 		Usage();
 
-	signal(SIGALRM, exec_ps);
+	signal(SIGALRM, set_alarm);
 	signal(SIGUSR1, print_pid);
 	signal(SIGUSR2, print_counter);
 
 	pid = getpid();
 
-	interval = atoi(argv[1]);
-	alarm(interval);
+	int interval = atoi(argv[1]);
 
-	while(1)
-		pause();
+	for(counter = 0; counter < COUNTER_MAX; ++counter)
+	{
+		alarm_recieved = 0;
+		alarm(interval);
+
+		while(alarm_recieved == 0)
+			pause();
+
+		exec_ps();
+	}
 }
