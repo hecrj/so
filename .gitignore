@@ -1,2 +1,3 @@
 *.out
-S*/*
+*.tar.gz
+*.ods

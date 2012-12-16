@@ -1,0 +1,14 @@
+Para 10 elementos:
+mem2_previo		022d4000-022f7000	00023000
+mem2_previo_v2	020a7000-020cb000	00024000
+
+Para 40000 elementos:
+mem2_previo		007b5000-007d8000	00023000
+mem2_previo_v2	02619000-02664000	0004B000
+
+Hay diferencias, en mem2_previo observamos que la heap se mantiene del
+mismo tamaño ya que el vector se almacena de manera estática. En cambio,
+en mem2_previo_v2 el vector se almacena de manera dinámica en la heap, por
+eso podemos observar como su valor crece dependiendo del número de elementos
+que tenga dicho vector.
+
