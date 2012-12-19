@@ -18,17 +18,6 @@ void put(int fd, char *s)
 	write(fd, s, strlen(s));
 }
 
-void Usage()
-{
-	char buff[80];
-	put(1, "Usage: name [params]\n\n");
-
-	put(1, "Description:\n");
-	put(1, "[Program description]");
-
-	exit(1);
-}
-
 /**
  * Throws an error and finishes the execution.
  * @param error_msg Error message to throw
@@ -36,6 +25,19 @@ void Usage()
 void runtime_error(char *error_msg)
 {
 	perror(error_msg);
+	exit(1);
+}
+
+/**
+ * Prints the usage and description of the program.
+ */
+void Usage()
+{
+	put(1, "Usage: name [params]\n\n");
+
+	put(1, "Description:\n");
+	put(1, "[Program description]");
+
 	exit(1);
 }
 
