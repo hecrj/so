@@ -41,7 +41,7 @@ void main(int argc, char *argv[])
 		sprintf(buff2, "Inicio\n");
 		write(pipefd[1], &buff2, strlen(buff2));
 
-		//close(pipefd[1]);
+		close(pipefd[1]);
 
 		int exit_status;
 		waitpid(-1, &exit_status, 0);
